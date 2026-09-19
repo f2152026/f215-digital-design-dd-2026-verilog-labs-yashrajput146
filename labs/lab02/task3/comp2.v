@@ -8,16 +8,19 @@
 // Write your testbench first, let it tell you something is wrong, THEN
 // come back and fix this file.
 
+// comp2.v
+// 2-bit unsigned magnitude comparator (FIXED)
+
 module comp2 (
-  input  [1:0] A,
-  input  [1:0] B,
-  output       GT,
-  output       LT,
-  output       EQ
+    input  [1:0] A,
+    input  [1:0] B,
+    output       GT,
+    output       LT,
+    output       EQ
 );
 
   assign EQ = (A == B);
-  assign GT = (A >= B);
-  assign LT = (A <  B);
+  assign GT = (A > B);  // Fixed: changed from (A >= B) to (A > B)
+  assign LT = (A < B);
 
 endmodule
