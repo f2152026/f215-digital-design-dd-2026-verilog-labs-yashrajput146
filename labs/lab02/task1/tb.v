@@ -4,18 +4,26 @@
 // Goal: apply all 8 combinations of I0, I1, S (5 time units apart) to DUT
 // and observe the output. Fill in every TODO below.
 
+// tb.v
+// Complete testbench for DUT
+
 module tb;
 
+  // DUT inputs declared as reg (procedurally assigned)
   reg t_i0, t_i1, t_s;
+
+  // DUT output declared as wire (driven by DUT port)
   wire t_y;
 
-  DUT UUT (
-    .I0(t_i0),
-    .I1(t_i1),
-    .S(t_s),
-    .Y(t_y)
+  // Instantiate DUT
+  DUT DUT (
+      .I0(t_i0),
+      .I1(t_i1),
+      .S (t_s),
+      .Y (t_y)
   );
 
+  // Waveform dump configuration
   string vcd_file;
   initial begin
     if ($value$plusargs("vcd=%s", vcd_file)) begin
@@ -24,32 +32,17 @@ module tb;
     end
   end
 
+  // Stimulus: Apply all 8 input combinations 5 time units apart
   initial begin
-    t_i0 = 0; t_i1 = 0; t_s = 0;
-    #5;
-
-    t_i0 = 0; t_i1 = 0; t_s = 1;
-    #5;
-
-    t_i0 = 0; t_i1 = 1; t_s = 0;
-    #5;
-
-    t_i0 = 0; t_i1 = 1; t_s = 1;
-    #5;
-
-    t_i0 = 1; t_i1 = 0; t_s = 0;
-    #5;
-
-    t_i0 = 1; t_i1 = 0; t_s = 1;
-    #5;
-
-    t_i0 = 1; t_i1 = 1; t_s = 0;
-    #5;
-
-    t_i0 = 1; t_i1 = 1; t_s = 1;
-    #5;
-
-    $finish;
+    {t_i0, t_i1, t_s} = 3'b000;
+    #5 {t_i0, t_i1, t_s} = 3'b001;
+    #5 {t_i0, t_i1, t_s} = 3'b010;
+    #5 {t_i0, t_i1, t_s} = 3'b011;
+    #5 {t_i0, t_i1, t_s} = 3'b100;
+    #5 {t_i0, t_i1, t_s} = 3'b101;
+    #5 {t_i0, t_i1, t_s} = 3'b110;
+    #5 {t_i0, t_i1, t_s} = 3'b111;
+    #5 $finish;
   end
 
   initial

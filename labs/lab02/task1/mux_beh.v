@@ -5,11 +5,14 @@
 // Hint: think carefully about which port should be a net and which should be
 // a variable in behavioral modeling.
 
+// mux_beh.v
+// 2-to-1 multiplexer, BEHAVIORAL style.
+
 module mux_beh (
-  input       I0,
-  input       I1,
-  input       S,
-  output reg Y
+    input      I0,
+    input      I1,
+    input      S,
+    output reg Y   // Fixed: output must be a reg for procedural assignment in an always block
 );
 
   always @(*) begin
